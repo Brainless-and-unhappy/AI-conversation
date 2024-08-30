@@ -61,7 +61,7 @@ public class UserController {
 
     @ApiOperation(value = "测试")
     @PostMapping("/test")
-    public Result<String> test(){
+    public Result<String> tes1t(){
 
         return Result.success("11111");
     }

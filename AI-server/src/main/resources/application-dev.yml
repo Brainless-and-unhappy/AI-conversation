@@ -1,0 +1,18 @@
+zjweu:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: 47.76.200.119
+    port: 3306
+    database: TrainingSystem
+    username: Vinca
+    password: Ecs@123
+  alioss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    access-key-id: LTAI5tRPToAZztFMpv5nktAn
+    access-key-secret: 45J2l0IkIpZLZyIP8SDDDbmRtrdNbg
+    bucket-name: chenzt-sky-take-out
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: '123456'
+    database: 10

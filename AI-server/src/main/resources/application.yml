@@ -1,0 +1,66 @@
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      driver-class-name: ${zjweu.datasource.driver-class-name}
+      url: jdbc:mysql://${zjweu.datasource.host}:${zjweu.datasource.port}/${zjweu.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${zjweu.datasource.username}
+      password: ${zjweu.datasource.password}
+  redis:
+    host: ${zjweu.redis.host}
+    port: ${zjweu.redis.port}
+    auth: ${zjweu.redis.password}
+    database: ${zjweu.redis.database}
+knife4j:
+  enable: true
+  openapi:
+    title: AI问答接口文档
+    description: "AI问答接口文档"
+    email: 1648082800@qq.com
+    concat: 111
+    version: v1.0.0
+    group:
+      default:
+        group-name: default
+        api-rule: package
+        api-rule-resources:
+          - com.zjweu.controller
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zjweu.po
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com:
+      zjweu:
+        mapper: debug
+        service: info
+        controller: info
+
+zjweu:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: zjweu
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+
+
+  alioss:
+    endpoint: ${zjweu.alioss.endpoint}
+    access-key-id: ${zjweu.alioss.access-key-id}
+    access-key-secret: ${zjweu.alioss.access-key-secret}
+    bucket-name: ${zjweu.alioss.bucket-name}
+
+

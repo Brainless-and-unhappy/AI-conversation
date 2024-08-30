@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjweu.mapper.ScoreMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zjweu.po.Score">
+        <id column="id" property="id" />
+        <result column="total_score" property="totalScore" />
+        <result column="listen_score" property="listenScore" />
+        <result column="apology_score" property="apologyScore" />
+        <result column="satisfaction_score" property="satisfactionScore" />
+        <result column="thanks_score" property="thanksScore" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, total_score, listen_score, apology_score, satisfaction_score, thanks_score
+    </sql>
+
+</mapper>

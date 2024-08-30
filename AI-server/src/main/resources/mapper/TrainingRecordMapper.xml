@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjweu.mapper.TrainingRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zjweu.po.TrainingRecord">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="scene_id" property="sceneId" />
+        <result column="score_id" property="scoreId" />
+        <result column="feedback" property="feedback" />
+        <result column="create_date" property="createDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, scene_id, score_id, feedback, create_date
+    </sql>
+
+</mapper>

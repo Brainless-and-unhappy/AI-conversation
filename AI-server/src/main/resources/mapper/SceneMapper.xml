@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjweu.mapper.SceneMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zjweu.po.Scene">
+        <id column="id" property="id" />
+        <result column="prompt" property="prompt" />
+        <result column="name" property="name" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <result column="operator" property="operator" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, prompt, name, create_date, update_date, operator
+    </sql>
+
+</mapper>

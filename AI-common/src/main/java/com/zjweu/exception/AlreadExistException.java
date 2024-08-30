@@ -1,7 +1,7 @@
 package com.zjweu.exception;
 
 /**
- * 账号被锁定异常
+ * 账号已存在异常
  */
 public class AlreadExistException extends BaseException {
 

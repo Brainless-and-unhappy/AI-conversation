@@ -11,11 +11,13 @@ import com.zjweu.dto.RegisterDTO;
 import com.zjweu.dto.UserLoginDTO;
 import com.zjweu.exception.AccountNotFoundException;
 import com.zjweu.exception.AlreadExistException;
+import com.zjweu.exception.AlreadExistNumberException;
 import com.zjweu.exception.PasswordErrorException;
 import com.zjweu.mapper.UserMapper;
 import com.zjweu.po.User;
 import com.zjweu.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,7 +74,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if(BeanUtil.isNotEmpty(user)){
             throw new AlreadExistException(MessageConstant.ALREADY_EXISTS);
         }
+        user = getOne(new QueryWrapper<User>().lambda().eq(registerDTO.getNumber() != null, User::getNumber, registerDTO.getNumber()));
 
+        if(BeanUtil.isNotEmpty(user)){
+            throw new AlreadExistNumberException(MessageConstant.ALREADY_EXISTS_nubmer);
+        }
         System.out.println(user);
         user = new User();
         BeanUtils.copyProperties(registerDTO,user);

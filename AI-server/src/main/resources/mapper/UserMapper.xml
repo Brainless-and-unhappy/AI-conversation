@@ -49,6 +49,7 @@
             <if test="operator != null and operator != ''">
                 and operator =#{operator}
             </if>
+            and role = 1
 
         </where>
     </select>

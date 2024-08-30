@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,6 +84,13 @@ public class UserController {
         return Result.success(pagequery);
 
     }
+    @DeleteMapping("/delete")
+    @ApiOperation("员工删除")
+    public Result delectById(@RequestParam List<Integer> ids){
+        userService.removeByIds(ids);
+        return Result.success();
+    }
+
     @ApiOperation(value = "测试")
     @PostMapping("/test")
     //test
@@ -90,6 +98,7 @@ public class UserController {
 
         return Result.success("11111");
     }
+
 
 
 

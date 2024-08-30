@@ -16,5 +16,14 @@
     <sql id="Base_Column_List">
         id, prompt, name, create_date, update_date, operator
     </sql>
+    <insert id="insertScene" parameterType="com.zjweu.po.Scene">
+        INSERT INTO Scene (prompt, name, operator)
+        VALUES (#{prompt}, #{name}, #{operator})
+    </insert>
 
+    <select id="getSceneById" parameterType="int" resultType="com.zjweu.po.Scene">
+        SELECT id, prompt, name, create_date, update_date, operator
+        FROM Scene
+        WHERE id = #{id}
+    </select>
 </mapper>

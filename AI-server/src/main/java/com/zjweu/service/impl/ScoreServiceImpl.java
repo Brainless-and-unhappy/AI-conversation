@@ -6,6 +6,7 @@ import com.zjweu.mapper.ScoreMapper;
 import com.zjweu.po.Score;
 import com.zjweu.service.ScoreService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,5 +19,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements ScoreService {
+    @Autowired
+    public ScoreMapper scoreMapper;
 
 }

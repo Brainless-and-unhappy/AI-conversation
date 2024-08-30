@@ -14,5 +14,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SceneMapper extends BaseMapper<Scene> {
+    public void insertScene(Scene scene);
+    public Scene getSceneById(int id);
+    public void deleteSceneById(int id);
 
 }

@@ -17,7 +17,6 @@ import com.zjweu.mapper.UserMapper;
 import com.zjweu.po.User;
 import com.zjweu.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,12 +41,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String username = userLoginDTO.getNickname();
         String password = userLoginDTO.getPassword();
         if(BeanUtil.isEmpty(username) ||  BeanUtil.isEmpty(password))
+        {
             throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+
+        }
+
 
         //1、根据用户名查询数据库中的数据
 
         //LambdaQueryWrapper<User> eq = new QueryWrapper<User>().lambda().eq(username != null, User::getNickname, username);
         User user = selectbynickname(username);
+
         //2、处理各种异常情况（用户名不存在、密码不对）
         if (user == null) {
             //账号不存在
@@ -77,7 +81,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user = getOne(new QueryWrapper<User>().lambda().eq(registerDTO.getNumber() != null, User::getNumber, registerDTO.getNumber()));
 
         if(BeanUtil.isNotEmpty(user)){
-            throw new AlreadExistNumberException(MessageConstant.ALREADY_EXISTS_nubmer);
+            throw new AlreadExistNumberException(MessageConstant.ALREADY_EXISTS_number);
         }
         System.out.println(user);
         user = new User();

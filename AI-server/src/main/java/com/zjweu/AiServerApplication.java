@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableScheduling//开启任务调度
 @MapperScan("com.zjweu.mapper")
 public class AiServerApplication {
+	//55554131sa
 
 	public static void main(String[] args) {
 		SpringApplication.run(AiServerApplication.class, args);

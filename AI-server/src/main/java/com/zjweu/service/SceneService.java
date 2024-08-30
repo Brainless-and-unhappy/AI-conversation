@@ -3,6 +3,9 @@ package com.zjweu.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zjweu.po.Scene;
 import com.zjweu.result.Result;
+import com.zjweu.vo.SceneRecordsVO;
+
+import java.util.List;
 
 
 /**
@@ -19,4 +22,5 @@ public interface SceneService extends IService<Scene> {
     Result deleteScene(Integer id);
     Scene getSceneById(int id);
 
+    List<SceneRecordsVO> selectRecordsById();
 }

@@ -24,7 +24,7 @@ public class UserPageVO {
     private String number;
     private LocalDate joinedDate;
     private String avatar;
-    @TableField(fill = FieldFill.INSERT)
+
     private LocalDateTime createDate;
 
     private LocalDateTime updateDate;

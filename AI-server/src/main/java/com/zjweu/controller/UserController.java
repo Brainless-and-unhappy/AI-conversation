@@ -61,6 +61,7 @@ public class UserController {
     }
 
     private Result<UserVO> getUserJwt(User user) {
+        //获取jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.USER_ID, user.getId());
         String token = JwtUtil.createJWT(
@@ -77,6 +78,7 @@ public class UserController {
     @GetMapping("/page")
     @ApiOperation("员工分页查询")
     public Result<PageResult> page(UserPageDTO userPageDTO){
+        log.info("员工分页查询{}",userPageDTO);
         PageResult<User> pagequery = userService.pagequery(userPageDTO);
         return Result.success(pagequery);
 

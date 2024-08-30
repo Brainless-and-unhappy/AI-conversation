@@ -2,6 +2,7 @@ package com.zjweu.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zjweu.po.Scene;
+import com.zjweu.vo.SceneRecordsVO;
 import org.apache.ibatis.annotations.Mapper;
 
 
@@ -18,4 +19,5 @@ public interface SceneMapper extends BaseMapper<Scene> {
     public Scene getSceneById(int id);
     public void deleteSceneById(int id);
 
+    SceneRecordsVO selectRecordsById(Integer userId, Integer id);
 }

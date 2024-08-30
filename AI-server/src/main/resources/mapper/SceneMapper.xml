@@ -26,4 +26,10 @@
         FROM Scene
         WHERE id = #{id}
     </select>
+    <select id="selectRecordsById" resultType="com.zjweu.vo.SceneRecordsVO">
+        SELECT scene_id as id,se.name seceneName,COUNT(*) as trainingCount,max(total_score) as highestScore
+        FROM Scene se
+                 LEFT JOIN Training_Record tr ON se.id = tr.scene_id
+                 LEFT JOIN Score sr ON tr.score_id = sr.id WHERE user_id=#{userId} and sr.id=#{id} GROUP BY scene_id;
+    </select>
 </mapper>

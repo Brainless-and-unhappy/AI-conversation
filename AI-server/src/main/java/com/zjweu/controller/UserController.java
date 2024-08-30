@@ -84,7 +84,7 @@ public class UserController {
         return Result.success(pagequery);
 
     }
-    @DeleteMapping("/delete")
+    @DeleteMapping("")
     @ApiOperation("员工删除")
     public Result delectById(@RequestParam List<Integer> ids){
         userService.removeByIds(ids);

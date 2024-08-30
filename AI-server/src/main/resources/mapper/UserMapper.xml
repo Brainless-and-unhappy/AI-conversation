@@ -28,5 +28,29 @@
     values(#{name}, #{nickname}, #{password}, #{role}, #{age}, #{sex}, #{number}, #{joined_date}, #{avatar}, #{createDate}, #{updateDate}, #{operator})
 
     </insert>
+    <select id="pageQuery" resultType="com.zjweu.po.User" parameterType="com.zjweu.po.User">
+        select * from User
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and name like concat('%',#{nickname},'%')
+            </if>
+            <if test="age != null and age != ''">
+                and age =#{age}
+            </if>
+            <if test="role != null and age != ''">
+                and role =#{role}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex =#{sex}
+            </if>
+            <if test="operator != null and operator != ''">
+                and operator =#{operator}
+            </if>
+
+        </where>
+    </select>
 
 </mapper>

@@ -5,23 +5,29 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.zjweu.constant.MessageConstant;
 import com.zjweu.constant.RoleConstant;
 import com.zjweu.dto.RegisterDTO;
 import com.zjweu.dto.UserLoginDTO;
+import com.zjweu.dto.UserPageDTO;
 import com.zjweu.exception.AccountNotFoundException;
 import com.zjweu.exception.AlreadExistException;
 import com.zjweu.exception.AlreadExistNumberException;
 import com.zjweu.exception.PasswordErrorException;
 import com.zjweu.mapper.UserMapper;
 import com.zjweu.po.User;
+import com.zjweu.result.PageResult;
 import com.zjweu.service.UserService;
+import com.zjweu.vo.UserPageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -91,5 +97,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setName("username");
         baseMapper.insert(user);
         return user;
+    }
+
+    @Override
+    public PageResult pagequery(UserPageDTO userPageDTO) {
+        PageHelper.startPage(userPageDTO.getPage(),userPageDTO.getPageSize());
+        User user = new User();
+        BeanUtil.copyProperties(userPageDTO,user);
+        Page<User> page= baseMapper.pageQuery(user);
+        PageResult<UserPageVO> result = new PageResult<>();
+        List<User> users = page.getResult();
+        List<UserPageVO> userPageVOS = BeanUtil.copyToList(users, UserPageVO.class);
+        result.setRecords(userPageVOS);
+        result.setTotal(page.getTotal());
+        return result;
     }
 }

@@ -4,8 +4,10 @@ package com.zjweu.controller;
 import com.zjweu.constant.JwtClaimsConstant;
 import com.zjweu.dto.RegisterDTO;
 import com.zjweu.dto.UserLoginDTO;
+import com.zjweu.dto.UserPageDTO;
 import com.zjweu.po.User;
 import com.zjweu.properties.JwtProperties;
+import com.zjweu.result.PageResult;
 import com.zjweu.result.Result;
 import com.zjweu.service.UserService;
 import com.zjweu.utils.JwtUtil;
@@ -16,10 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,6 +74,13 @@ public class UserController {
         return Result.success(userVO);
     }
 
+    @GetMapping("/page")
+    @ApiOperation("员工分页查询")
+    public Result<PageResult> page(UserPageDTO userPageDTO){
+        PageResult<User> pagequery = userService.pagequery(userPageDTO);
+        return Result.success(pagequery);
+
+    }
     @ApiOperation(value = "测试")
     @PostMapping("/test")
     //test

@@ -1,6 +1,7 @@
 package com.zjweu.aspect;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import com.zjweu.annotation.AutoFill;
 import com.zjweu.constant.AutoFillConstant;
 import com.zjweu.context.BaseContext;
@@ -44,18 +45,20 @@ public class AutoFillAspect {
 
 //       准备赋值的数据
         LocalDateTime now = LocalDateTime.now();
-        Long currentId = BaseContext.getCurrentId();
+        Integer currentId = BaseContext.getCurrentId();
+        if(BeanUtil.isEmpty(currentId))
+            currentId=0;
 
 //        根据当前不同的操作类型，为对应的属性通过反射来赋值
         if( value == OperationType.INSERT ){
             try {
                 Method setCreateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
-                Method setCreateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Long.class);
+                //Method setCreateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Integer.class);
                 Method setUpdateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
-                Method setUpdateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);
+                Method setUpdateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Integer.class);
 //              通过反射为对象传递属性
                 setCreateTime.invoke(entity,now);
-                setCreateUser.invoke(entity,currentId);
+                //setCreateUser.invoke(entity,currentId);
                 setUpdateTime.invoke(entity,now);
                 setUpdateUser.invoke(entity,currentId);
             } catch (Exception e) {
@@ -65,7 +68,7 @@ public class AutoFillAspect {
         } else if (value == OperationType.UPDATE) {
             try {
                 Method setUpdateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
-                Method setUpdateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);
+                Method setUpdateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Integer.class);
 //              通过反射为对象传递属性
                 setUpdateTime.invoke(entity,now);
                 setUpdateUser.invoke(entity,currentId);

@@ -23,5 +23,10 @@
     <sql id="Base_Column_List">
         id, name, nickname, password, role, age, sex, number, joined_date, avatar, create_date, update_date, operator
     </sql>
+    <insert id="insertRegister" parameterType="com.zjweu.po.User" useGeneratedKeys="true" keyProperty="id">
+    insert into User(name, nickname, password, role, age, sex, number, joined_date, avatar, create_date, update_date, operator)
+    values(#{name}, #{nickname}, #{password}, #{role}, #{age}, #{sex}, #{number}, #{joined_date}, #{avatar}, #{createDate}, #{updateDate}, #{operator})
+
+    </insert>
 
 </mapper>

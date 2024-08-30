@@ -2,6 +2,7 @@ package com.zjweu.controller;
 
 
 import com.zjweu.constant.JwtClaimsConstant;
+import com.zjweu.dto.RegisterDTO;
 import com.zjweu.dto.UserLoginDTO;
 import com.zjweu.po.User;
 import com.zjweu.properties.JwtProperties;
@@ -11,11 +12,12 @@ import com.zjweu.utils.JwtUtil;
 import com.zjweu.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +48,20 @@ public class UserController {
     public Result<UserVO> login(@RequestBody UserLoginDTO userLoginDTO){
         log.info("员工登录：{}",userLoginDTO);
         User user= userService.login(userLoginDTO);
+        return getUserJwt(user);
+    }
+
+    @ApiOperation(value = "注册")
+    @PostMapping("/register")
+    public  Result<UserVO> register(@RequestBody RegisterDTO registerDTO){
+        log.info("用户注册 {}",registerDTO);
+        User user=userService.register(registerDTO);
+
+
+        return getUserJwt(user);
+    }
+
+    private Result<UserVO> getUserJwt(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.USER_ID, user.getId());
         String token = JwtUtil.createJWT(

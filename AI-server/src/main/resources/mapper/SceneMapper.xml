@@ -32,4 +32,7 @@
                  LEFT JOIN Training_Record tr ON se.id = tr.scene_id
                  LEFT JOIN Score sr ON tr.score_id = sr.id WHERE user_id=#{userId} and se.id=#{id} GROUP BY scene_id;
     </select>
+    <delete id="deleteSceneById" parameterType="int">
+        DELETE FROM Scene WHERE id = #{id}
+    </delete>
 </mapper>

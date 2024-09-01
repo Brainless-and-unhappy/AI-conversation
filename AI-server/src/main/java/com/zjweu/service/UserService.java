@@ -1,10 +1,7 @@
 package com.zjweu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zjweu.dto.RegisterDTO;
-import com.zjweu.dto.UserDTO;
-import com.zjweu.dto.UserLoginDTO;
-import com.zjweu.dto.UserPageDTO;
+import com.zjweu.dto.*;
 import com.zjweu.po.User;
 import com.zjweu.result.PageResult;
 
@@ -26,4 +23,6 @@ public interface UserService extends IService<User> {
     PageResult pagequery(UserPageDTO userPageDTO);
 
     void updateById1(UserDTO userDTO);
+
+    void updateNow(UserNowDTO userDTO);
 }

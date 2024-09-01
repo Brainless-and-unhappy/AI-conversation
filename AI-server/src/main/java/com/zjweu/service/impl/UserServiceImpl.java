@@ -10,10 +10,7 @@ import com.github.pagehelper.PageHelper;
 import com.zjweu.constant.MessageConstant;
 import com.zjweu.constant.RoleConstant;
 import com.zjweu.context.BaseContext;
-import com.zjweu.dto.RegisterDTO;
-import com.zjweu.dto.UserDTO;
-import com.zjweu.dto.UserLoginDTO;
-import com.zjweu.dto.UserPageDTO;
+import com.zjweu.dto.*;
 import com.zjweu.exception.AccountNotFoundException;
 import com.zjweu.exception.AlreadExistException;
 import com.zjweu.exception.AlreadExistNumberException;
@@ -44,6 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     public UserMapper userMapper;
+    //登录
     @Override
     public User login(UserLoginDTO userLoginDTO) {
         String username = userLoginDTO.getNickname();
@@ -71,14 +69,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         return user;
     }
-
+    //查询
     private User selectbynickname(String nickname){
 
         LambdaQueryWrapper<User> eq = new QueryWrapper<User>().lambda().eq(nickname != null, User::getNickname, nickname);
         User user = getOne(eq);
         return user;
     }
-
+    //注册
     @Override
     public User register(RegisterDTO registerDTO) {
         User user = selectbynickname(registerDTO.getNickname());
@@ -100,7 +98,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         baseMapper.insert(user);
         return user;
     }
-
+    //分页查询
     @Override
     public PageResult pagequery(UserPageDTO userPageDTO) {
         PageHelper.startPage(userPageDTO.getPage(),userPageDTO.getPageSize());
@@ -114,9 +112,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         result.setTotal(page.getTotal());
         return result;
     }
-
+    //修改用户
     @Override
     public void updateById1(UserDTO userDTO) {
+        User user = BeanUtil.copyProperties(userDTO, User.class);
+        user.setId(BaseContext.getCurrentId());
+        userMapper.updateById1(user);
+    }
+
+    @Override
+    public void updateNow(UserNowDTO userDTO) {
         User user = BeanUtil.copyProperties(userDTO, User.class);
         user.setId(BaseContext.getCurrentId());
         userMapper.updateById1(user);

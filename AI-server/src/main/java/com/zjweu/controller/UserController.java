@@ -4,10 +4,7 @@ package com.zjweu.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.zjweu.constant.JwtClaimsConstant;
 import com.zjweu.context.BaseContext;
-import com.zjweu.dto.RegisterDTO;
-import com.zjweu.dto.UserDTO;
-import com.zjweu.dto.UserLoginDTO;
-import com.zjweu.dto.UserPageDTO;
+import com.zjweu.dto.*;
 import com.zjweu.po.User;
 import com.zjweu.properties.JwtProperties;
 import com.zjweu.result.PageResult;
@@ -118,9 +115,16 @@ public class UserController {
     }
 
     @PutMapping()
-    @ApiOperation("修改员工信息")
+    @ApiOperation("修改用户信息")
     public Result updateById(@RequestBody UserDTO userDTO){
         userService.updateById1(userDTO);
+        return Result.success();
+    }
+
+    @PutMapping("/update")
+    @ApiOperation("修改当前用户信息")
+    public Result updateNow(@RequestBody UserNowDTO userNowDTO){
+        userService.updateNow(userNowDTO);
         return Result.success();
     }
 

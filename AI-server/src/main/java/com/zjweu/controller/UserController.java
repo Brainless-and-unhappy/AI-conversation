@@ -1,7 +1,9 @@
 package com.zjweu.controller;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import com.zjweu.constant.JwtClaimsConstant;
+import com.zjweu.context.BaseContext;
 import com.zjweu.dto.RegisterDTO;
 import com.zjweu.dto.UserLoginDTO;
 import com.zjweu.dto.UserPageDTO;
@@ -11,6 +13,7 @@ import com.zjweu.result.PageResult;
 import com.zjweu.result.Result;
 import com.zjweu.service.UserService;
 import com.zjweu.utils.JwtUtil;
+import com.zjweu.vo.UserPageVO;
 import com.zjweu.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -80,7 +83,7 @@ public class UserController {
     @ApiOperation("员工分页查询")
     public Result<PageResult> page(UserPageDTO userPageDTO){
         log.info("员工分页查询{}",userPageDTO);
-        PageResult<User> pagequery = userService.pagequery(userPageDTO);
+        PageResult<UserVO> pagequery = userService.pagequery(userPageDTO);
         return Result.success(pagequery);
 
     }
@@ -90,6 +93,29 @@ public class UserController {
         userService.removeByIds(ids);
         return Result.success();
     }
+
+    /*
+     * 根据id查询员工
+     * */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询用户信息")
+    public Result<UserPageVO> getById(@PathVariable  Long id){
+        System.out.println(id);
+        User user = userService.getById(id);
+        UserPageVO userVO = BeanUtil.copyProperties(user, UserPageVO.class);
+        return Result.success(userVO);
+    }
+
+    @GetMapping("")
+    @ApiOperation("查询当前用户信息")
+    public Result<UserPageVO> getBynow(){
+        Integer id = BaseContext.getCurrentId();
+        System.out.println(id);
+        User user = userService.getById(id);
+        UserPageVO userVO = BeanUtil.copyProperties(user, UserPageVO.class);
+        return Result.success(userVO);
+    }
+
 
     @ApiOperation(value = "测试")
     @PostMapping("/test")

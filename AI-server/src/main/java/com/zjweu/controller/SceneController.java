@@ -24,7 +24,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @Api(tags = "场景接口")
-@RequestMapping("admin/scene")
+@RequestMapping("/admin/scene")
 @RequiredArgsConstructor
 public class SceneController {
 

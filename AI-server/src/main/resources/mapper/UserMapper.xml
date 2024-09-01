@@ -35,7 +35,7 @@
                 and name like concat('%',#{name},'%')
             </if>
             <if test="nickname != null and nickname != ''">
-                and name like concat('%',#{nickname},'%')
+                and nickname like concat('%',#{nickname},'%')
             </if>
             <if test="age != null and age != ''">
                 and age =#{age}

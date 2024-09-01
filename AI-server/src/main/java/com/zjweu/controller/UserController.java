@@ -5,6 +5,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.zjweu.constant.JwtClaimsConstant;
 import com.zjweu.context.BaseContext;
 import com.zjweu.dto.RegisterDTO;
+import com.zjweu.dto.UserDTO;
 import com.zjweu.dto.UserLoginDTO;
 import com.zjweu.dto.UserPageDTO;
 import com.zjweu.po.User;
@@ -116,6 +117,12 @@ public class UserController {
         return Result.success(userVO);
     }
 
+    @PutMapping()
+    @ApiOperation("修改员工信息")
+    public Result updateById(@RequestBody UserDTO userDTO){
+        userService.updateById1(userDTO);
+        return Result.success();
+    }
 
     @ApiOperation(value = "测试")
     @PostMapping("/test")

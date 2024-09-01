@@ -22,4 +22,7 @@ public interface UserMapper extends BaseMapper<User> {
     public void insertRegister(User user);
 
     Page<User> pageQuery(User user);
+
+    @AutoFill(value = OperationType.UPDATE)
+    void updateById1(User user);
 }

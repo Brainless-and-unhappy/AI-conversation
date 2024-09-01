@@ -9,7 +9,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zjweu.constant.MessageConstant;
 import com.zjweu.constant.RoleConstant;
+import com.zjweu.context.BaseContext;
 import com.zjweu.dto.RegisterDTO;
+import com.zjweu.dto.UserDTO;
 import com.zjweu.dto.UserLoginDTO;
 import com.zjweu.dto.UserPageDTO;
 import com.zjweu.exception.AccountNotFoundException;
@@ -111,5 +113,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         result.setRecords(userPageVOS);
         result.setTotal(page.getTotal());
         return result;
+    }
+
+    @Override
+    public void updateById1(UserDTO userDTO) {
+        User user = BeanUtil.copyProperties(userDTO, User.class);
+        user.setId(BaseContext.getCurrentId());
+        userMapper.updateById1(user);
     }
 }

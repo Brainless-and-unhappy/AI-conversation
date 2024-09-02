@@ -40,8 +40,8 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             return Result.success();
         }
     }
-    public Scene getSceneById(int id) {
-        Scene scene = getSceneById(id);
+    public Scene getSceneById(Integer id) {
+        Scene scene = sceneMapper.getSceneById(id);
         return scene;
     }
 

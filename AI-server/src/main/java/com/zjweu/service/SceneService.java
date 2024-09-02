@@ -20,7 +20,7 @@ public interface SceneService extends IService<Scene> {
     void addScene(Scene scene);
     //Scene updateScene(Scene scene);
     Result deleteScene(Integer id);
-    Scene getSceneById(int id);
+    Scene getSceneById(Integer id);
 
     List<SceneRecordsVO> selectRecordsById();
 }

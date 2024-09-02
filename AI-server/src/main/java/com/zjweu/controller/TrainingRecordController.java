@@ -8,6 +8,7 @@ import com.zjweu.po.User;
 import com.zjweu.result.PageResult;
 import com.zjweu.result.Result;
 import com.zjweu.service.TrainingRecordService;
+import com.zjweu.vo.AvgScoreVo;
 import com.zjweu.vo.TraningRecordPageVO;
 import com.zjweu.vo.UserPageVO;
 import io.swagger.annotations.Api;
@@ -15,9 +16,13 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -45,5 +50,13 @@ public class TrainingRecordController {
         return Result.success(traningRecordPageVO);
     }
 
+    @GetMapping("/daily-average-scores")
+    @ApiOperation("每日训练平均分数")
+    public Result<List<AvgScoreVo>> getAvgScore(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+                                               @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end)
+    {
+        log.info("每日训练平均分数：{},{}",begin,end);
+        return Result.success(trainingRecordService.getAvgScore(begin,end));
 
+    }
 }

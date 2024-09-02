@@ -118,15 +118,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public void updateById1(UserDTO userDTO) {
         User user = BeanUtil.copyProperties(userDTO, User.class);
-        user.setId(BaseContext.getCurrentId());
-        userMapper.updateById1(user);
+        List<User> list = lambdaQuery().eq(user.getNumber() != null, User::getNumber, user.getNumber())
+                .ne(User::getId, user.getId()).list();
+        if(BeanUtil.isEmpty(list))
+            userMapper.updateById1(user);
+        else
+            throw new AlreadExistNumberException(MessageConstant.ALREADY_EXISTS_number);
+
+        //user.setId(BaseContext.getCurrentId());
+
     }
 
     @Override
     public void updateNow(UserNowDTO userDTO) {
         User user = BeanUtil.copyProperties(userDTO, User.class);
         user.setId(BaseContext.getCurrentId());
-        userMapper.updateById1(user);
+
+        List<User> list = lambdaQuery().eq(user.getNumber() != null, User::getNumber, user.getNumber())
+                .ne(User::getId, user.getId()).list();
+        if(BeanUtil.isEmpty(list))
+            userMapper.updateById1(user);
+        else
+            throw new AlreadExistNumberException(MessageConstant.ALREADY_EXISTS_number);
     }
 
     @Override

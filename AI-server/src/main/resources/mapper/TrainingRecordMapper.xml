@@ -36,5 +36,21 @@
         </where>
 
     </select>
+    <select id="getAvgScore" resultType="java.lang.Double">
+        select avg(total_score)  from  Training_Record tr left join Score s
+        on tr.score_id=s.id
+        <where>
+            <if test="begin != null">
+                and create_date &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and create_date &lt; #{end}
+            </if>
+            <if test="id != null">
+                and user_id = #{id}
+            </if>
+        </where>
+    </select>
+
 
 </mapper>

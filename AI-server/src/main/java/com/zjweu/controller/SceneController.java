@@ -49,7 +49,7 @@ public class SceneController {
     @ApiOperation("返回所有场景")
     @PostMapping("/getAllScene")
     public Result getAllScene(){
-        List<SceneVO> scenes=sceneService.getAllScenes();
-        return Result.success(scenes);
+        List<Scene> list = sceneService.list();
+        return Result.success(list);
     }
 }

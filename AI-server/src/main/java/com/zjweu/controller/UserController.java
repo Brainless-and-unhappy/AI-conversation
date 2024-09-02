@@ -118,7 +118,7 @@ public class UserController {
         return Result.success(userVO);
     }
 
-    @PutMapping()
+    @PostMapping("/edit")
     @ApiOperation("修改用户信息")
     public Result updateById(@RequestBody UserDTO userDTO){
         log.info("查询当前用户信息{}",userDTO);
@@ -127,7 +127,7 @@ public class UserController {
         return Result.success();
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     @ApiOperation("修改当前用户信息")
     public Result updateNow(@RequestBody UserNowDTO userNowDTO){
         log.info("修改当前用户信息");

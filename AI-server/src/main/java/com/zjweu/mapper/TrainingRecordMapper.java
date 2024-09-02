@@ -6,6 +6,8 @@ import com.zjweu.dto.TrainingRecordPageDTO;
 import com.zjweu.po.TrainingRecord;
 import com.zjweu.vo.TraningRecordPageVO;
 
+import java.util.Map;
+
 
 /**
  * <p>
@@ -19,4 +21,6 @@ public interface TrainingRecordMapper extends BaseMapper<TrainingRecord> {
     Page<TraningRecordPageVO> pageQuery(TrainingRecordPageDTO trainingRecordPageDTO, Integer id);
 
     Page<TraningRecordPageVO> pageQuery(TrainingRecordPageDTO trainingRecordPageDTO);
+
+    Double getAvgScore(Map map);
 }

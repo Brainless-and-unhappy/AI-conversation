@@ -29,6 +29,7 @@ import java.util.List;
 @RestController
 @RequestMapping("score")
 @RequiredArgsConstructor
+@Api(tags = "成绩接口")
 public class ScoreController {
 
     private final ScoreService scoreService;

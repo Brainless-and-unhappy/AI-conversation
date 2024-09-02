@@ -25,4 +25,6 @@ public interface UserService extends IService<User> {
     void updateById1(UserDTO userDTO);
 
     void updateNow(UserNowDTO userDTO);
+
+    void updateps(UserPasswordDTO password);
 }

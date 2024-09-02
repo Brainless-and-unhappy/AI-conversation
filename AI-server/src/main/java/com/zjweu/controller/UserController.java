@@ -88,6 +88,7 @@ public class UserController {
     @DeleteMapping("")
     @ApiOperation("员工删除")
     public Result delectById(@RequestParam List<Integer> ids){
+        log.info("员工删除{}",ids);
         userService.removeByIds(ids);
         return Result.success();
     }
@@ -98,6 +99,7 @@ public class UserController {
     @GetMapping("/{id}")
     @ApiOperation("根据id查询用户信息")
     public Result<UserPageVO> getById(@PathVariable  Long id){
+        log.info("根据id查询用户信息{}",id);
         System.out.println(id);
         User user = userService.getById(id);
         UserPageVO userVO = BeanUtil.copyProperties(user, UserPageVO.class);
@@ -107,6 +109,8 @@ public class UserController {
     @GetMapping("")
     @ApiOperation("查询当前用户信息")
     public Result<UserPageVO> getBynow(){
+        log.info("查询当前用户信息");
+
         Integer id = BaseContext.getCurrentId();
         System.out.println(id);
         User user = userService.getById(id);
@@ -117,6 +121,8 @@ public class UserController {
     @PutMapping()
     @ApiOperation("修改用户信息")
     public Result updateById(@RequestBody UserDTO userDTO){
+        log.info("查询当前用户信息{}",userDTO);
+
         userService.updateById1(userDTO);
         return Result.success();
     }
@@ -124,7 +130,18 @@ public class UserController {
     @PutMapping("/update")
     @ApiOperation("修改当前用户信息")
     public Result updateNow(@RequestBody UserNowDTO userNowDTO){
+        log.info("修改当前用户信息");
+
         userService.updateNow(userNowDTO);
+        return Result.success();
+    }
+
+    @PutMapping("/updateps")
+    @ApiOperation("修改密码")
+    public Result updatepassword( @RequestBody UserPasswordDTO userPasswordDTO){
+        log.info("修改密码{}",userPasswordDTO);
+
+        userService.updateps(userPasswordDTO);
         return Result.success();
     }
 

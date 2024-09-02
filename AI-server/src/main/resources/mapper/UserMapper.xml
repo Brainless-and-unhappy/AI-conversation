@@ -25,7 +25,7 @@
     </sql>
     <insert id="insertRegister" parameterType="com.zjweu.po.User" useGeneratedKeys="true" keyProperty="id">
     insert into User(name, nickname, password, role, age, sex, number, joined_date, avatar, create_date, update_date, operator)
-    values(#{name}, #{nickname}, #{password}, #{role}, #{age}, #{sex}, #{number}, #{joined_date}, #{avatar}, #{createDate}, #{updateDate}, #{operator})
+    values(#{name}, #{nickname}, #{password}, #{role}, #{age}, #{sex}, #{number}, #{joinedDate}, #{avatar}, #{createDate}, #{updateDate}, #{operator})
 
     </insert>
     <update id="updateById1" parameterType="com.zjweu.po.User">
@@ -47,7 +47,7 @@
         <if test="number != null and number != ''">
             number =#{number},
         </if>
-        <if test="joinedDate != null and joinedDate != ''">
+        <if test="joinedDate != null ">
             joined_date =#{joinedDate},
         </if>
         <if test="updateDate != null">

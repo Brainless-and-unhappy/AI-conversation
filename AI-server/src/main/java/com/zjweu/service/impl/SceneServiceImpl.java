@@ -65,7 +65,7 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
             if(BeanUtil.isEmpty(recordsVO)){
                 recordsVO=new SceneRecordsVO();
                 recordsVO.setId(scene.getId());
-                recordsVO.setSeceneName(scene.getName());
+                recordsVO.setSceneName(scene.getName());
                 recordsVO.setHighestScore(0);
                 recordsVO.setTrainingCount(0);
             }

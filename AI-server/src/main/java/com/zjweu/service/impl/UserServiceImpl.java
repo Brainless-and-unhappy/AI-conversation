@@ -11,10 +11,7 @@ import com.zjweu.constant.MessageConstant;
 import com.zjweu.constant.RoleConstant;
 import com.zjweu.context.BaseContext;
 import com.zjweu.dto.*;
-import com.zjweu.exception.AccountNotFoundException;
-import com.zjweu.exception.AlreadExistException;
-import com.zjweu.exception.AlreadExistNumberException;
-import com.zjweu.exception.PasswordErrorException;
+import com.zjweu.exception.*;
 import com.zjweu.mapper.UserMapper;
 import com.zjweu.po.User;
 import com.zjweu.result.PageResult;
@@ -26,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -79,6 +77,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     //注册
     @Override
     public User register(RegisterDTO registerDTO) {
+        if(BeanUtil.isEmpty(registerDTO.getNickname()))
+        {
+            throw new BaseException("账号为空");
+        }
         User user = selectbynickname(registerDTO.getNickname());
 
         if(BeanUtil.isNotEmpty(user)){
@@ -95,7 +97,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setJoinedDate(LocalDate.now());
         user.setRole(RoleConstant.ENABLE);
         user.setName("username");
-        baseMapper.insert(user);
+        userMapper.insertRegister(user);
         return user;
     }
     //分页查询
@@ -124,6 +126,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void updateNow(UserNowDTO userDTO) {
         User user = BeanUtil.copyProperties(userDTO, User.class);
         user.setId(BaseContext.getCurrentId());
+        userMapper.updateById1(user);
+    }
+
+    @Override
+    public void updateps(UserPasswordDTO password) {
+
+        if(BeanUtil.isEmpty(password.getNewPassword()) || BeanUtil.isEmpty(password.getOldPassword()))
+            throw new BaseException("不存在");
+
+        User user = getById(BaseContext.getCurrentId());
+        if(user.getPassword().equals(password.getOldPassword()))
+            user.setPassword(password.getNewPassword());
+        else
+            throw new BaseException("原密码错误");
+
+        //user.setUpdateDate(LocalDateTime.now());
+
+
         userMapper.updateById1(user);
     }
 }

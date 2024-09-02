@@ -5,14 +5,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "用户分页数据模型")
-public class UserPageDTO {
+@ApiModel(description = "训练记录分页数据模型")
+public class TrainingRecordPageDTO {
 
     @ApiModelProperty("用户名")
     private String nickname;
 
-    @ApiModelProperty("用户性别")
-    private String sex;
+    @ApiModelProperty("场景id")
+    private Integer sceneId;
+
+    @ApiModelProperty("用户id")
+    private Integer userId;
 
     //页码
     @ApiModelProperty("页码")

@@ -19,7 +19,7 @@ public interface UserMapper extends BaseMapper<User> {
 
 
     @AutoFill(value = OperationType.INSERT)
-    public void insertRegister(User user);
+     void insertRegister(User user);
 
     Page<User> pageQuery(User user);
 

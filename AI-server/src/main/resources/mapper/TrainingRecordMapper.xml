@@ -16,5 +16,25 @@
     <sql id="Base_Column_List">
         id, user_id, scene_id, score_id, feedback, create_date
     </sql>
+    <select id="pageQuery" resultType="com.zjweu.vo.TraningRecordPageVO" parameterType="com.zjweu.vo.TraningRecordPageVO">
+        select tr.id id,feedback, tr.create_date createDate,total_score,sc.name sceneName from Training_Record tr left join Score s
+        on tr.score_id=s.id
+        left join Scene sc
+        on tr.scene_id=sc.id
+        left join User
+        on tr.user_id = User.id
+        <where>
+            <if test="sceneId != null and sceneId != ''">
+                and scene_id =#{sceneId}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname like concat('%',#{nickname},'%')
+            </if>
+            <if test="userId != null and userId != '' ">
+                user_id = #{userId}
+            </if>
+        </where>
+
+    </select>
 
 </mapper>

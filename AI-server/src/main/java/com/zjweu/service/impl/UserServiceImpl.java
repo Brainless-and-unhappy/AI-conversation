@@ -77,6 +77,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     //注册
     @Override
     public User register(RegisterDTO registerDTO) {
+        if(BeanUtil.isEmpty(registerDTO.getNickname()))
+        {
+            throw new BaseException("账号为空");
+        }
         User user = selectbynickname(registerDTO.getNickname());
 
         if(BeanUtil.isNotEmpty(user)){

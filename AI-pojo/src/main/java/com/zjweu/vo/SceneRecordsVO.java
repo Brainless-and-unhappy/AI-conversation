@@ -12,7 +12,7 @@ public class SceneRecordsVO {
 
     //场景
     @ApiModelProperty("场景名")
-    private String seceneName;
+    private String sceneName;
 
     @ApiModelProperty("最高分数")
     private Integer highestScore;

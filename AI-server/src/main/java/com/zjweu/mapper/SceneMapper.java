@@ -5,7 +5,10 @@ import com.zjweu.annotation.AutoFill;
 import com.zjweu.enumeration.OperationType;
 import com.zjweu.po.Scene;
 import com.zjweu.vo.SceneRecordsVO;
+import com.zjweu.vo.SceneVO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 
 /**
@@ -23,4 +26,5 @@ public interface SceneMapper extends BaseMapper<Scene> {
     public void deleteSceneById(int id);
 
     SceneRecordsVO selectRecordsById(Integer userId, Integer id);
+    public List<SceneVO> getAllScenes();
 }

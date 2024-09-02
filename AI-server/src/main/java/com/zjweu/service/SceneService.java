@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zjweu.po.Scene;
 import com.zjweu.result.Result;
 import com.zjweu.vo.SceneRecordsVO;
+import com.zjweu.vo.SceneVO;
 
 import java.util.List;
 
@@ -23,4 +24,5 @@ public interface SceneService extends IService<Scene> {
     Scene getSceneById(Integer id);
 
     List<SceneRecordsVO> selectRecordsById();
+    public List<SceneVO> getAllScenes();
 }

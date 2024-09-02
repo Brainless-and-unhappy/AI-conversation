@@ -5,6 +5,7 @@ import com.zjweu.po.Scene;
 import com.zjweu.result.Result;
 import com.zjweu.service.SceneService;
 import com.zjweu.vo.SceneRecordsVO;
+import com.zjweu.vo.SceneVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -44,5 +45,11 @@ public class SceneController {
         List<SceneRecordsVO> sceneRecordsVOS= sceneService.selectRecordsById();
         return Result.success(sceneRecordsVOS);
 
+    }
+    @ApiOperation("返回所有场景")
+    @PostMapping("/getAllScene")
+    public Result getAllScene(){
+        List<SceneVO> scenes=sceneService.getAllScenes();
+        return Result.success(scenes);
     }
 }

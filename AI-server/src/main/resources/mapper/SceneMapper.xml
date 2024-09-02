@@ -35,4 +35,12 @@
     <delete id="deleteSceneById" parameterType="int">
         DELETE FROM Scene WHERE id = #{id}
     </delete>
+
+    <select id="getAllScenes" resultType="com.zjweu.vo.SceneVO">
+        SELECT
+            id,
+            name
+        FROM
+            Scene
+    </select>
 </mapper>

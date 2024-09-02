@@ -3,17 +3,22 @@ package com.zjweu.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.zjweu.context.BaseContext;
 import com.zjweu.mapper.SceneMapper;
 import com.zjweu.po.Scene;
 import com.zjweu.result.Result;
 import com.zjweu.service.SceneService;
 import com.zjweu.vo.SceneRecordsVO;
+import com.zjweu.vo.SceneVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +34,12 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
     @Autowired
     private SceneMapper sceneMapper;
     public void addScene(Scene scene){
-        sceneMapper.insertScene(scene);
+        if(scene.getPrompt().toString()!="" && scene.getName().toString()!=""){
+            scene.setOperator(BaseContext.getCurrentId());
+            scene.setUpdateDate(LocalDateTime.now());
+            sceneMapper.insertScene(scene);
+        }
+
     }
     public Result deleteScene(Integer id){
         if(getSceneById(id)==null){
@@ -64,5 +74,9 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
         return sceneRecordsVOS;
 
 
+    }
+    @Override
+    public List<SceneVO> getAllScenes(){
+        return sceneMapper.getAllScenes();
     }
 }

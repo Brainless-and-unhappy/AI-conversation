@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.zjweu.context.BaseContext;
+import com.zjweu.dto.UserPageDTO;
 import com.zjweu.mapper.SceneMapper;
 import com.zjweu.po.Scene;
+import com.zjweu.result.PageResult;
 import com.zjweu.result.Result;
 import com.zjweu.service.SceneService;
 import com.zjweu.vo.SceneRecordsVO;
@@ -78,5 +80,10 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
     @Override
     public List<SceneVO> getAllScenes(){
         return sceneMapper.getAllScenes();
+    }
+
+    @Override
+    public PageResult pagequery(UserPageDTO userPageDTO) {
+        return null;
     }
 }

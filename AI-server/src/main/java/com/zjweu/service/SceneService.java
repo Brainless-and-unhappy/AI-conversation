@@ -1,7 +1,9 @@
 package com.zjweu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zjweu.dto.UserPageDTO;
 import com.zjweu.po.Scene;
+import com.zjweu.result.PageResult;
 import com.zjweu.result.Result;
 import com.zjweu.vo.SceneRecordsVO;
 import com.zjweu.vo.SceneVO;
@@ -25,4 +27,6 @@ public interface SceneService extends IService<Scene> {
 
     List<SceneRecordsVO> selectRecordsById();
     public List<SceneVO> getAllScenes();
+
+    PageResult pagequery(UserPageDTO userPageDTO);
 }

@@ -24,12 +24,16 @@
             s.apology_score AS apologyScore,
             s.satisfaction_score AS satisfactionScore,
             s.thanks_score AS thanksScore
-        FROM
-            Score s
-                INNER JOIN
-            Training_Record tr ON s.id = tr.score_id
-        WHERE
+        FROM  Score s INNER JOIN
+        Training_Record tr ON s.id = tr.score_id
+        inner join User  on tr.user_id = User.id
+        <where>
             tr.user_id = #{userId}
+            <if test="nickname!= null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+        </where>
+
     </select>
     <select id="getSubScoresByTrainingId" parameterType="int" resultType="com.zjweu.po.Score">
         SELECT

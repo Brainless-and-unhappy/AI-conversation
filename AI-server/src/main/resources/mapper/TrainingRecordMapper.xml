@@ -51,6 +51,44 @@
             </if>
         </where>
     </select>
+    <select id="getCounts" resultType="java.lang.Double">
+        select count(*)  from  Training_Record
+        <where>
+            <if test="begin != null">
+                and create_date &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and create_date &lt; #{end}
+            </if>
+            <if test="id != null">
+                and user_id = #{id}
+            </if>
+        </where>
+
+    </select>
+    <select id="getSceneCounts" resultType="com.zjweu.vo.SceneCounts">
+        select s.name sceneName,COUNT(*) avg from  Training_Record tr
+        left join Scene s on tr.scene_id = s.id
+        <where>
+            <if test="id != null">
+                and user_id = #{id}
+            </if>
+        </where>
+        GROUP BY s.id
+    </select>
+    <select id="getSceneAvg" resultType="com.zjweu.vo.SceneCounts">
+        select s.name sceneName,avg(total_score) avg from  Training_Record tr
+        left join Scene s on tr.scene_id = s.id
+        left join Score sc
+        on tr.scene_id=sc.id
+        <where>
+            <if test="id != null">
+                and user_id = #{id}
+            </if>
+        </where>
+        GROUP BY s.id
+
+    </select>
 
 
 </mapper>

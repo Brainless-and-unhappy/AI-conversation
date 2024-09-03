@@ -9,6 +9,7 @@ import com.zjweu.result.PageResult;
 import com.zjweu.result.Result;
 import com.zjweu.service.TrainingRecordService;
 import com.zjweu.vo.AvgScoreVo;
+import com.zjweu.vo.SceneCounts;
 import com.zjweu.vo.TraningRecordPageVO;
 import com.zjweu.vo.UserPageVO;
 import io.swagger.annotations.Api;
@@ -58,5 +59,30 @@ public class TrainingRecordController {
         log.info("每日训练平均分数：{},{}",begin,end);
         return Result.success(trainingRecordService.getAvgScore(begin,end));
 
+    }
+
+    @GetMapping("/daily-counts")
+    @ApiOperation("每日训练次数")
+    public Result<List<AvgScoreVo>> getCounts(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+                                                @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end)
+    {
+        log.info("每日训练次数：{},{}",begin,end);
+        return Result.success(trainingRecordService.getCounts(begin,end));
+
+    }
+
+    @GetMapping("/scenario-counts")
+    @ApiOperation("每场景训练次数")
+    public Result<List<SceneCounts>> getSceneCounts()
+    {
+        log.info("每场景训练次数");
+        return Result.success(trainingRecordService.getSceneCounts());
+    }
+    @GetMapping("/scenario-average-scores")
+    @ApiOperation("每场景训练平均分")
+    public Result<List<SceneCounts>> getSceneAvg()
+    {
+        log.info("每场景训练次数");
+        return Result.success(trainingRecordService.getSceneAvg());
     }
 }

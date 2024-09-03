@@ -1,11 +1,20 @@
 package com.zjweu.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ApiModel(description = "训练返回数据格式")
 public class TraningRecordPageVO {
     //场景ID
     @ApiModelProperty("训练记录ID")

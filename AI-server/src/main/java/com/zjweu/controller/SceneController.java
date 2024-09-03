@@ -1,11 +1,14 @@
 package com.zjweu.controller;
 
 
+import com.zjweu.dto.UserPageDTO;
 import com.zjweu.po.Scene;
+import com.zjweu.result.PageResult;
 import com.zjweu.result.Result;
 import com.zjweu.service.SceneService;
 import com.zjweu.vo.SceneRecordsVO;
 import com.zjweu.vo.SceneVO;
+import com.zjweu.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -47,9 +50,16 @@ public class SceneController {
 
     }
     @ApiOperation("返回所有场景")
-    @PostMapping("/getAllScene")
+    @GetMapping("/getAllScene")
     public Result getAllScene(){
         List<Scene> list = sceneService.list();
         return Result.success(list);
+    }
+    @GetMapping("/page")
+    @ApiOperation("场景分页查询")
+    public Result<PageResult> page(UserPageDTO userPageDTO){
+        log.info("场景分页查询{}",userPageDTO);
+        PageResult pagequery = sceneService.pagequery(userPageDTO);
+        return Result.success(pagequery);
     }
 }

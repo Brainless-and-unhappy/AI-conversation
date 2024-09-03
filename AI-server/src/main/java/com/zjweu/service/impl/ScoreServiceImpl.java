@@ -3,12 +3,9 @@ package com.zjweu.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.github.pagehelper.PageHelper;
-import com.zjweu.context.BaseContext;
-import com.zjweu.dto.UserPageDTO;
 import com.zjweu.dto.UserScorePageDTO;
 import com.zjweu.mapper.ScoreMapper;
 import com.zjweu.po.Score;
-import com.zjweu.result.Result;
 import com.zjweu.service.ScoreService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +30,7 @@ public class ScoreServiceImpl extends ServiceImpl<ScoreMapper, Score> implements
         PageHelper.startPage(userScorePageDTO.getPage(),userScorePageDTO.getPageSize());
         return null;
     }
-    public List<Score> getSubScores(Integer trainingId){
+    public Score getSubScores(Integer trainingId){
         return scoreMapper.getSubScoresByTrainingId(trainingId);
     }
 

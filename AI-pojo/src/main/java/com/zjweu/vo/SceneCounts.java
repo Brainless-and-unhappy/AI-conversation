@@ -7,22 +7,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "每日平均分数返回数据格式")
-public class AvgScoreVo {
-
-    @ApiModelProperty("日期")
-    private LocalDate date;
+@ApiModel(description = "每个场景训练次数返回数据格式")
+public class SceneCounts {
+    @ApiModelProperty("场景名")
+    private String sceneName;
 
 
     @ApiModelProperty("平均分数")
     private Double avg;
-
 }

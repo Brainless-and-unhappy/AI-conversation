@@ -41,8 +41,8 @@ public class ScoreController {
     }
     @ApiOperation("详细成绩查询")
     @PostMapping("/getSubScore")
-    public Result<List<Score>> getSubScore(Integer trainingId){
-        List<Score> scoreList=scoreService.getSubScores(trainingId);
+    public Result<Score> getSubScore(Integer trainingId){
+        Score scoreList=scoreService.getSubScores(trainingId);
         return Result.success(scoreList);
     }
 }

@@ -89,7 +89,8 @@ public class UserController {
     @ApiOperation("员工删除")
     public Result delectById(@RequestParam List<Integer> ids){
         log.info("员工删除{}",ids);
-        userService.removeByIds(ids);
+
+        userService.delete(ids);
         return Result.success();
     }
 
@@ -98,7 +99,7 @@ public class UserController {
      * */
     @GetMapping("/{id}")
     @ApiOperation("根据id查询用户信息")
-    public Result<UserPageVO> getById(@PathVariable  Long id){
+    public Result<UserPageVO> getById(@PathVariable  Integer id){
         log.info("根据id查询用户信息{}",id);
         System.out.println(id);
         User user = userService.getById(id);
@@ -121,7 +122,7 @@ public class UserController {
     @PostMapping("/edit")
     @ApiOperation("修改用户信息")
     public Result updateById(@RequestBody UserDTO userDTO){
-        log.info("查询当前用户信息{}",userDTO);
+        log.info("修改用户信息{}",userDTO);
 
         userService.updateById1(userDTO);
         return Result.success();

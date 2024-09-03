@@ -63,7 +63,6 @@
     <select id="pageQuery" resultType="com.zjweu.po.User" parameterType="com.zjweu.po.User">
         select * from User
         <where>
-            role = 1
             <if test="name != null and name != ''">
                 and name like concat('%',#{name},'%')
             </if>
@@ -73,7 +72,7 @@
             <if test="age != null and age != ''">
                 and age =#{age}
             </if>
-            <if test="role != null and age != ''">
+            <if test="role != null and role != ''">
                 and role =#{role}
             </if>
             <if test="sex != null and sex != ''">

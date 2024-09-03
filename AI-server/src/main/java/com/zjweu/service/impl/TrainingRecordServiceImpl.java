@@ -13,6 +13,8 @@ import com.zjweu.mapper.UserMapper;
 import com.zjweu.po.TrainingRecord;
 import com.zjweu.po.User;
 import com.zjweu.result.PageResult;
+import com.zjweu.service.ScoreService;
+import com.zjweu.service.TrainingDialogueRecordService;
 import com.zjweu.service.TrainingRecordService;
 import com.zjweu.vo.AvgScoreVo;
 import com.zjweu.vo.SceneCounts;
@@ -20,6 +22,7 @@ import com.zjweu.vo.TraningRecordPageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,11 +45,18 @@ public class TrainingRecordServiceImpl extends ServiceImpl<TrainingRecordMapper,
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private ScoreService scoreService;
+
+    @Autowired
+    private TrainingDialogueRecordService trainingDialogueRecordService;
     @Override
     public PageResult<TraningRecordPageVO> pagequery(TrainingRecordPageDTO trainingRecordPageDTO) {
 
         User user = userMapper.selectById(BaseContext.getCurrentId());
         Page<TraningRecordPageVO> page =new Page<>();
+        //判断是否为管理员
         if(user.getRole().equals(1)){
             PageHelper.startPage(trainingRecordPageDTO.getPage(),trainingRecordPageDTO.getPageSize());
             trainingRecordPageDTO.setUserId(user.getId());
@@ -137,5 +147,22 @@ public class TrainingRecordServiceImpl extends ServiceImpl<TrainingRecordMapper,
     public List<SceneCounts> getSceneAvg() {
         List<SceneCounts> list=baseMapper.getSceneAvg(BaseContext.getCurrentId());
         return list;
+    }
+
+    @Override
+    @Transactional
+    public void delete(List<TrainingRecord> trainingRecordList) {
+        List<Integer> scoreId= new ArrayList<>();
+        List<Integer> tr_Id =new ArrayList<>();
+
+        for (TrainingRecord t:trainingRecordList) {
+            scoreId.add(t.getScoreId());
+            tr_Id.add(t.getId());
+        }
+
+        scoreService.removeBatchByIds(scoreId);
+        trainingDialogueRecordService.removeBatchByIds(tr_Id);
+        removeBatchByIds(tr_Id);
+
     }
 }

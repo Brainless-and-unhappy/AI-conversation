@@ -10,8 +10,11 @@ public class MessageConstant {
     public static final String ACCOUNT_LOCKED = "账号被锁定";
 
     public static final String ALREADY_EXISTS = "账号已存在";
+    public static final String NAME_EXISTS = "名字已存在";
 
     public static final String ALREADY_EXISTS_number = "手机号已存在";
+
+    public static final String IS_NULL = "字段为空";
 
 
     public static final String UNKNOWN_ERROR = "未知错误";

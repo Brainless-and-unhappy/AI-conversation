@@ -43,6 +43,8 @@ public class ScoreController {
     @PostMapping("/getSubScore")
     public Result<Score> getSubScore(Integer trainingId){
         Score scoreList=scoreService.getSubScores(trainingId);
+
+
         return Result.success(scoreList);
     }
 }

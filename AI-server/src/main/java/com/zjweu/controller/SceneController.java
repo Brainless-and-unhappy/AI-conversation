@@ -1,6 +1,9 @@
 package com.zjweu.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import com.zjweu.dto.SceneDTO;
+import com.zjweu.dto.ScenePageDTO;
 import com.zjweu.dto.UserPageDTO;
 import com.zjweu.po.Scene;
 import com.zjweu.result.PageResult;
@@ -36,9 +39,9 @@ public class SceneController {
     private final SceneService sceneService;
     @ApiOperation(value = "添加场景")
     @PostMapping("/addScene")
-    public Result addScene(@RequestBody Scene scene) {
-        log.info("添加场景{}",scene);
-        sceneService.addScene(scene);
+    public Result addScene(@RequestBody SceneDTO sceneDTO) {
+        log.info("添加场景{}",sceneDTO);
+        sceneService.addScene(sceneDTO);
         return Result.success();
     }
 
@@ -57,9 +60,34 @@ public class SceneController {
     }
     @GetMapping("/page")
     @ApiOperation("场景分页查询")
-    public Result<PageResult> page(UserPageDTO userPageDTO){
-        log.info("场景分页查询{}",userPageDTO);
-        PageResult pagequery = sceneService.pagequery(userPageDTO);
+    public Result<PageResult> page(ScenePageDTO scenePageDTO){
+        log.info("场景分页查询{}",scenePageDTO);
+        PageResult pagequery = sceneService.pagequery(scenePageDTO);
         return Result.success(pagequery);
     }
+
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询场景信息")
+    public Result<Scene> getById(@PathVariable  Integer id){
+        log.info("根据id查询场景信息{}",id);
+        Scene scene = sceneService.getById(id);
+        return Result.success(scene);
+    }
+    @PostMapping("/update")
+    @ApiOperation("修改场景信息")
+    private Result update(@RequestBody SceneDTO sceneDTO){
+        sceneService.updateById1(sceneDTO);
+
+        return Result.success();
+    }
+    @DeleteMapping("")
+    @ApiOperation("场景删除")
+    public Result delectById(@RequestParam List<Integer> ids){
+        log.info("场景删除{}",ids);
+
+        sceneService.delete(ids);
+        return Result.success();
+    }
+
 }
+

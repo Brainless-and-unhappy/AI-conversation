@@ -5,6 +5,8 @@ import com.zjweu.dto.*;
 import com.zjweu.po.User;
 import com.zjweu.result.PageResult;
 
+import java.util.List;
+
 
 /**
  * <p>
@@ -27,4 +29,6 @@ public interface UserService extends IService<User> {
     void updateNow(UserNowDTO userDTO);
 
     void updateps(UserPasswordDTO password);
+
+    void delete(List<Integer> ids);
 }

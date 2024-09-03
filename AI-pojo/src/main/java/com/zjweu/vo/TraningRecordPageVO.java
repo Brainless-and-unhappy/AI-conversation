@@ -20,6 +20,9 @@ public class TraningRecordPageVO {
     @ApiModelProperty("训练记录ID")
     private Integer id;
 
+    @ApiModelProperty("用户名")
+    private String nickName;
+
     //场景
     @ApiModelProperty("场景名")
     private String sceneName;

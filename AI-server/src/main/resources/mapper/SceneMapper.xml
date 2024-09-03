@@ -16,10 +16,29 @@
     <sql id="Base_Column_List">
         id, prompt, name, create_date, update_date, operator
     </sql>
-    <insert id="insertScene" parameterType="com.zjweu.po.Scene">
-        INSERT INTO Scene (prompt, name, operator)
-        VALUES (#{prompt}, #{name}, #{operator})
+    <insert id="insertScene" parameterType="com.zjweu.po.Scene"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Scene (prompt, name,create_date, update_date, operator)
+        VALUES (#{prompt}, #{name}, #{createDate}, #{updateDate}, #{operator})
     </insert>
+    <update id="updateById1" parameterType="com.zjweu.po.Scene">
+        update Scene
+        <set>
+            <if test="name != null and name != ''">
+                name=#{name},
+            </if>
+            <if test="prompt != null and prompt != ''">
+                prompt=#{prompt},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="operator != null">
+                operator = #{operator},
+            </if>
+        </set>
+        where id = #{id}
+
+    </update>
 
     <select id="getSceneById" parameterType="int" resultType="com.zjweu.po.Scene">
         SELECT id, prompt, name, create_date, update_date, operator
@@ -27,7 +46,7 @@
         WHERE id = #{id}
     </select>
     <select id="selectRecordsById" resultType="com.zjweu.vo.SceneRecordsVO">
-        SELECT scene_id as id,se.name seceneName,COUNT(*) as trainingCount,max(total_score) as highestScore
+        SELECT scene_id as id,se.name sceneName,COUNT(*) as trainingCount,max(total_score) as highestScore
         FROM Scene se
                  LEFT JOIN Training_Record tr ON se.id = tr.scene_id
                  LEFT JOIN Score sr ON tr.score_id = sr.id WHERE user_id=#{userId} and se.id=#{id} GROUP BY scene_id;
@@ -42,5 +61,21 @@
             name
         FROM
             Scene
+    </select>
+    <select id="pagequery" resultType="com.zjweu.po.Scene" parameterType="com.zjweu.po.Scene">
+        select * from Scene
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="prompt != null and prompt != ''">
+                and prompt like concat('%',#{prompt},'%')
+            </if>
+            <if test="operator != null and operator != ''">
+                and operator =#{operator}
+            </if>
+
+        </where>
+
     </select>
 </mapper>

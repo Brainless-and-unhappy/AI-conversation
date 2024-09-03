@@ -13,14 +13,17 @@ import com.zjweu.context.BaseContext;
 import com.zjweu.dto.*;
 import com.zjweu.exception.*;
 import com.zjweu.mapper.UserMapper;
+import com.zjweu.po.TrainingRecord;
 import com.zjweu.po.User;
 import com.zjweu.result.PageResult;
+import com.zjweu.service.TrainingRecordService;
 import com.zjweu.service.UserService;
 import com.zjweu.vo.UserPageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,6 +42,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     public UserMapper userMapper;
+
+    @Autowired
+    public TrainingRecordService trainingRecordService;
     //登录
     @Override
     public User login(UserLoginDTO userLoginDTO) {
@@ -106,6 +112,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         PageHelper.startPage(userPageDTO.getPage(),userPageDTO.getPageSize());
         User user = new User();
         BeanUtil.copyProperties(userPageDTO,user);
+        user.setRole(RoleConstant.ENABLE);
         Page<User> page= baseMapper.pageQuery(user);
         PageResult<UserPageVO> result = new PageResult<>();
         List<User> users = page.getResult();
@@ -120,7 +127,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = BeanUtil.copyProperties(userDTO, User.class);
         List<User> list = lambdaQuery().eq(user.getNumber() != null, User::getNumber, user.getNumber())
                 .ne(User::getId, user.getId()).list();
-        if(BeanUtil.isEmpty(list))
+        if(list.size()==0)
             userMapper.updateById1(user);
         else
             throw new AlreadExistNumberException(MessageConstant.ALREADY_EXISTS_number);
@@ -136,7 +143,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         List<User> list = lambdaQuery().eq(user.getNumber() != null, User::getNumber, user.getNumber())
                 .ne(User::getId, user.getId()).list();
-        if(BeanUtil.isEmpty(list))
+        if(list.size()==0)
             userMapper.updateById1(user);
         else
             throw new AlreadExistNumberException(MessageConstant.ALREADY_EXISTS_number);
@@ -158,5 +165,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
         userMapper.updateById1(user);
+    }
+
+    @Override
+    @Transactional
+    public void delete(List<Integer> ids) {
+        List<TrainingRecord> trainingRecordList = trainingRecordService.lambdaQuery().in(TrainingRecord::getUserId, ids).list();
+        trainingRecordService.delete(trainingRecordList);
+        removeBatchByIds(ids);
     }
 }

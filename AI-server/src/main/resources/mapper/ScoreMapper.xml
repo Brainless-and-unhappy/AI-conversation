@@ -16,7 +16,7 @@
     <sql id="Base_Column_List">
         id, total_score, listen_score, apology_score, satisfaction_score, thanks_score
     </sql>
-    <select id="getScoreList" parameterType="int" resultType="com.zjweu.po.Score">
+    <select id="getScoreList" parameterType="java.lang.Integer" resultType="com.zjweu.po.Score">
         SELECT
             s.id AS id,
             s.total_score AS totalScore,
@@ -35,17 +35,17 @@
         </where>
 
     </select>
-    <select id="getSubScoresByTrainingId" parameterType="int" resultType="com.zjweu.po.Score">
+    <select id="getSubScoresByTrainingId" parameterType="java.lang.Integer" resultType="com.zjweu.po.Score">
         SELECT
             s.id AS id,
             s.listen_score AS listenScore,
             s.apology_score AS apologyScore,
             s.satisfaction_score AS satisfactionScore,
-            s.thanks_score AS thanksScore
+            s.thanks_score AS thanksScore,
             s.total_score AS totalScore
         FROM
             Score s
-                INNER JOIN
+            INNER JOIN
             Training_Record tr ON s.id = tr.score_id
         WHERE
             tr.id = #{trainingId}

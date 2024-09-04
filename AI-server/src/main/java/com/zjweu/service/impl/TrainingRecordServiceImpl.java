@@ -173,9 +173,10 @@ public class TrainingRecordServiceImpl extends ServiceImpl<TrainingRecordMapper,
     public TrainingRecord insert(Integer sceneId) {
         TrainingRecord trainingRecord =new TrainingRecord();
         trainingRecord.setCreateDate(LocalDateTime.now());
+        trainingRecord.setUserId(BaseContext.getCurrentId());
+        trainingRecord.setSceneId(sceneId);
+        baseMapper.insert(trainingRecord);
 
-
-
-        return null;
+        return trainingRecord;
     }
 }

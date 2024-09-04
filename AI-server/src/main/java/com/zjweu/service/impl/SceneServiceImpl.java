@@ -44,15 +44,16 @@ public class SceneServiceImpl extends ServiceImpl<SceneMapper, Scene> implements
     @Autowired
     private TrainingRecordService trainingRecordService;
     public void addScene(SceneDTO sceneDTO){
+        if(BeanUtil.isEmpty(sceneDTO.getPrompt()) || BeanUtil.isEmpty(sceneDTO.getName())){
+            throw new BaseException(MessageConstant.IS_NULL);
+        }
         List<Scene> list = lambdaQuery().eq(sceneDTO.getName() != null, Scene::getName, sceneDTO.getName())
                 .list();
         if (list.size() !=0 )
             throw new BaseException(MessageConstant.NAME_EXISTS);
         Scene scene =new Scene();
         BeanUtil.copyProperties(sceneDTO,scene);
-        if(BeanUtil.isEmpty(scene.getPrompt()) || BeanUtil.isEmpty(scene.getName())){
-            throw new BaseException(MessageConstant.IS_NULL);
-        }
+
         sceneMapper.insertScene(scene);
 
     }

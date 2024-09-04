@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
  *  服务实现类
@@ -20,4 +22,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TrainingDialogueRecordServiceImpl extends ServiceImpl<TrainingDialogueRecordMapper, TrainingDialogueRecord> implements TrainingDialogueRecordService {
 
+    @Override
+    public void insert(TrainingDialogueRecord record) {
+       Integer num= baseMapper.selectNum(record.getTrainingId());
+       record.setOrderNum(num+1);
+       record.setDate(LocalDateTime.now());
+        System.out.println(record);
+       baseMapper.insert(record);
+    }
 }

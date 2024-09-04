@@ -13,4 +13,5 @@ import com.zjweu.po.TrainingDialogueRecord;
  */
 public interface TrainingDialogueRecordMapper extends BaseMapper<TrainingDialogueRecord> {
 
+    Integer selectNum(Integer trainingId);
 }

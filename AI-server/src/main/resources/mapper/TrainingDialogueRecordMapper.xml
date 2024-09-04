@@ -16,5 +16,9 @@
     <sql id="Base_Column_List">
         id, training_id, content, order_num, speaker, date
     </sql>
+    <select id="selectNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select COUNT(*) from Training_Dialogue_Record
+        WHERE training_id=#{trainingId}
+    </select>
 
 </mapper>

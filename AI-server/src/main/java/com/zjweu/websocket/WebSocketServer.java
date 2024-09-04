@@ -1,8 +1,15 @@
 package com.zjweu.websocket;
 
+import com.zjweu.po.TrainingDialogueRecord;
+import com.zjweu.service.TrainingDialogueRecordService;
+import com.zjweu.service.TrainingRecordService;
 import com.zjweu.service.impl.CustomChatGpt;
+import com.zjweu.service.impl.TrainingDialogueRecordServiceImpl;
+import io.swagger.annotations.ApiOperation;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.OnClose;
@@ -22,6 +29,14 @@ import java.util.Map;
 @Component
 @ServerEndpoint("/ws/{sid}")
 public class WebSocketServer {
+    private static ApplicationContext applicationContext;
+
+    @Autowired
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        WebSocketServer.applicationContext = applicationContext;
+    }
+
+    private TrainingDialogueRecordService trainingDialogueRecordService;
 
     //存放会话对象
     private static Map<String, Session> sessionMap = new HashMap();
@@ -38,6 +53,7 @@ public class WebSocketServer {
      */
     @OnOpen
     public void onOpen(Session session, @PathParam("sid") String sid) {
+        this.trainingDialogueRecordService = applicationContext.getBean(TrainingDialogueRecordService.class);
         System.out.println("客户端：" + sid + "建立连接");
         httpClient = HttpClients.createDefault();
         // 根据自己的网络设置吧
@@ -53,9 +69,29 @@ public class WebSocketServer {
     @OnMessage
     public void onMessage(String message, @PathParam("sid") String sid) {
 
+        //用户说话
+        TrainingDialogueRecord trainingDialogueRecord=new TrainingDialogueRecord();
+        System.out.println(sid);
+
+        System.out.println(Integer.parseInt(sid));
+        trainingDialogueRecord.setTrainingId(Integer.parseInt(sid));
+        trainingDialogueRecord.setSpeaker(Boolean.TRUE);
+        trainingDialogueRecord.setContent(message);
+        System.out.println(trainingDialogueRecord);
+        this.trainingDialogueRecordService.insert(trainingDialogueRecord);
+
         long start = System.currentTimeMillis();
+        //发送信息
         String answer = customChatGpt.getAnswer(httpClient, message);
         long end = System.currentTimeMillis();
+        //AI回答
+        trainingDialogueRecord=new TrainingDialogueRecord();
+        trainingDialogueRecord.setTrainingId(Integer.parseInt(sid));
+        trainingDialogueRecord.setSpeaker(Boolean.FALSE);
+        trainingDialogueRecord.setContent(answer);
+        this.trainingDialogueRecordService.insert(trainingDialogueRecord);
+
+
         System.out.println("该回答花费时间为：" + (end - start) / 1000.0 + "秒");
         sendToAllClient(answer,sid);
         System.out.println("收到来自客户端：" + sid + "的信息:" + message);

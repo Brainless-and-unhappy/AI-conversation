@@ -93,6 +93,6 @@ public class TrainingRecordController {
     public Result<TrainingRecord> insert(Integer scene_id){
         TrainingRecord trainingRecord=trainingRecordService.insert(scene_id);
 
-        return null;
+        return Result.success(trainingRecord);
     }
 }

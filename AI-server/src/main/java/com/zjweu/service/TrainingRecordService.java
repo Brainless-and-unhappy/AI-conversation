@@ -34,4 +34,6 @@ public interface TrainingRecordService extends IService<TrainingRecord> {
     List<SceneCounts> getSceneAvg();
 
     void delete(List<TrainingRecord> trainingRecordList);
+
+    TrainingRecord insert(Integer sceneId);
 }

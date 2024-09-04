@@ -12,9 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,7 +38,7 @@ public class ScoreController {
         return Result.success();
     }
     @ApiOperation("详细成绩查询")
-    @PostMapping("/getSubScore")
+    @GetMapping("/getSubScore")
     public Result<Score> getSubScore(Integer trainingId){
         Score scoreList=scoreService.getSubScores(trainingId);
 

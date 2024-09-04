@@ -80,7 +80,7 @@
         select s.name sceneName,avg(total_score) avg from  Training_Record tr
         left join Scene s on tr.scene_id = s.id
         left join Score sc
-        on tr.scene_id=sc.id
+        on tr.score_id=sc.id
         <where>
             <if test="id != null">
                 and user_id = #{id}

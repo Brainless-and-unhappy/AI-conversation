@@ -1,5 +1,6 @@
 package com.zjweu.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
@@ -98,6 +99,8 @@ public class TrainingRecordServiceImpl extends ServiceImpl<TrainingRecordMapper,
             map.put("id",BaseContext.getCurrentId());
             Double avgScore=baseMapper.getAvgScore(map);
             AvgScoreVo avgScoreVo = new AvgScoreVo();
+            if(BeanUtil.isEmpty(avgScore))
+                avgScore=0.0;
             avgScoreVo.setAvg(avgScore);
             avgScoreVo.setDate(date);
             avgScoreVoList.add(avgScoreVo);
@@ -164,5 +167,15 @@ public class TrainingRecordServiceImpl extends ServiceImpl<TrainingRecordMapper,
         trainingDialogueRecordService.removeBatchByIds(tr_Id);
         removeBatchByIds(tr_Id);
 
+    }
+
+    @Override
+    public TrainingRecord insert(Integer sceneId) {
+        TrainingRecord trainingRecord =new TrainingRecord();
+        trainingRecord.setCreateDate(LocalDateTime.now());
+
+
+
+        return null;
     }
 }

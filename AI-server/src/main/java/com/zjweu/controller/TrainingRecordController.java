@@ -4,6 +4,7 @@ package com.zjweu.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.zjweu.context.BaseContext;
 import com.zjweu.dto.TrainingRecordPageDTO;
+import com.zjweu.po.TrainingRecord;
 import com.zjweu.po.User;
 import com.zjweu.result.PageResult;
 import com.zjweu.result.Result;
@@ -84,5 +85,14 @@ public class TrainingRecordController {
     {
         log.info("每场景训练次数");
         return Result.success(trainingRecordService.getSceneAvg());
+    }
+
+
+    @GetMapping("/insert")
+    @ApiOperation("插入训练记录")
+    public Result<TrainingRecord> insert(Integer scene_id){
+        TrainingRecord trainingRecord=trainingRecordService.insert(scene_id);
+
+        return null;
     }
 }

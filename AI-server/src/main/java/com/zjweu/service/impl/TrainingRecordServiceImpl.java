@@ -1,14 +1,12 @@
 package com.zjweu.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.zjweu.context.BaseContext;
 import com.zjweu.dto.TrainingRecordPageDTO;
-import com.zjweu.mapper.SceneMapper;
 import com.zjweu.mapper.TrainingRecordMapper;
 import com.zjweu.mapper.UserMapper;
 import com.zjweu.po.TrainingRecord;
@@ -178,5 +176,12 @@ public class TrainingRecordServiceImpl extends ServiceImpl<TrainingRecordMapper,
         baseMapper.insert(trainingRecord);
 
         return trainingRecord;
+    }
+
+    @Override
+    public void setFeedback(String sid, String answer) {
+        TrainingRecord trainingRecord = getById(sid);
+        trainingRecord.setFeedback(answer);
+        updateById(trainingRecord);
     }
 }

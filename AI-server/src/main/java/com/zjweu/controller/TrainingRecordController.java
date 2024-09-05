@@ -19,9 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -95,4 +93,15 @@ public class TrainingRecordController {
 
         return Result.success(trainingRecord);
     }
+
+    @GetMapping("/feedback")
+    @ApiOperation("插入训练记录")
+    public Result<String> getFeedback(Integer id){
+        System.out.println(id);
+        TrainingRecord trainingRecord = trainingRecordService.getById(id);
+
+        return Result.success(trainingRecord.getFeedback());
+    }
+
+
 }

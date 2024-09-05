@@ -2,7 +2,9 @@ package com.zjweu.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zjweu.po.TrainingDialogueRecord;
-import org.apache.ibatis.annotations.Insert;
+import com.zjweu.vo.TrainingDialogueRecordVO;
+
+import java.util.List;
 
 
 /**
@@ -16,4 +18,5 @@ import org.apache.ibatis.annotations.Insert;
 public interface TrainingDialogueRecordService extends IService<TrainingDialogueRecord> {
     void insert(TrainingDialogueRecord record);
 
+    List<TrainingDialogueRecordVO> getAll(Integer trainingId);
 }

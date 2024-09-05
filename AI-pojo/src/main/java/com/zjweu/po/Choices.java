@@ -13,6 +13,8 @@ public class Choices {
 
     ChatGptMessage message;
     String finish_reason;
+
+    String logprobs;
     Integer index;
 }
 

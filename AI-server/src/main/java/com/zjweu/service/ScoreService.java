@@ -18,4 +18,5 @@ import java.util.List;
 public interface ScoreService extends IService<Score> {
     public List<Score> getScoreList(UserScorePageDTO userScorePageDTO);
     public Score getSubScores(Integer trainingId);
+    public void insert(Score score, String sid);
 }

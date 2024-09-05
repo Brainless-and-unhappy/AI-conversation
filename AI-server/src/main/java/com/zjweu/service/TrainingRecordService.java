@@ -36,4 +36,6 @@ public interface TrainingRecordService extends IService<TrainingRecord> {
     void delete(List<TrainingRecord> trainingRecordList);
 
     TrainingRecord insert(Integer sceneId);
+
+    void setFeedback(String sid, String feedback);
 }

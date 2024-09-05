@@ -1,14 +1,17 @@
 package com.zjweu.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zjweu.mapper.TrainingDialogueRecordMapper;
 import com.zjweu.po.TrainingDialogueRecord;
 import com.zjweu.service.TrainingDialogueRecordService;
+import com.zjweu.vo.TrainingDialogueRecordVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -29,5 +32,13 @@ public class TrainingDialogueRecordServiceImpl extends ServiceImpl<TrainingDialo
        record.setDate(LocalDateTime.now());
         System.out.println(record);
        baseMapper.insert(record);
+    }
+
+    @Override
+    public List<TrainingDialogueRecordVO> getAll(Integer trainingId) {
+        List<TrainingDialogueRecord> list = lambdaQuery().eq(trainingId != null, TrainingDialogueRecord::getTrainingId, trainingId).list();
+        List<TrainingDialogueRecordVO> vos = BeanUtil.copyToList(list, TrainingDialogueRecordVO.class);
+
+        return vos;
     }
 }
